@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * package com.tree.spring.publisher
- * description:导演负责分发事件
+ * description:事件分发器
  *
  * @author tree
  * @date 2018-11-30 09:05
@@ -18,6 +18,7 @@ public class CustomizePublisher  implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher applicationEventPublisher;
 
     public void publish(MealEvent event) {
+        //发布
         applicationEventPublisher.publishEvent(event);
     }
 

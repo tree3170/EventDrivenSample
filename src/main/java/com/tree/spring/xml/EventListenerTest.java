@@ -38,6 +38,7 @@ public class EventListenerTest {
             System.out.println("definitionName----:" + definitionName);
         }
         System.err.println();
+        //获取事件分发器
         CustomizePublisher customizePublisher = applicationContext.getBean(CustomizePublisher.class);
 
         Thread thread = new Thread(()-> {
@@ -47,6 +48,7 @@ public class EventListenerTest {
                     MealEvent lunchEvent = new MealEvent("A吃午饭了", MealEnum.lunch);
                     MealEvent breakfastEvent = new MealEvent("B吃早饭了", MealEnum.breakfast);
                     MealEvent dinnerEvent = new MealEvent("C吃晚饭了", MealEnum.dinner);
+                    //分发具体事件
                     customizePublisher.publish(lunchEvent);
                     TimeUnit.SECONDS.sleep(1l);
                     customizePublisher.publish(breakfastEvent);
