@@ -1,4 +1,4 @@
-package com.tree.spring.xml.enums;
+package com.tree.spring.enums;
 
 /**
  * package com.tree.spring.enums

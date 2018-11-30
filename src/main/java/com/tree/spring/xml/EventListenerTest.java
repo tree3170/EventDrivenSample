@@ -1,6 +1,6 @@
 package com.tree.spring.xml;
 
-import com.tree.spring.xml.enums.MealEnum;
+import com.tree.spring.enums.MealEnum;
 import com.tree.spring.xml.event.MealEvent;
 import com.tree.spring.xml.publisher.CustomizePublisher;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * MealEnum                                          道具
  * <p>
- * TestPortal                                           入口
+ * EventListenerTest
  * <p>
- * CustomizePublisher                           导演
+ * CustomizePublisher
  *
  * @author tree
  * @date 2018-11-30 09:32
@@ -34,15 +34,14 @@ public class EventListenerTest {
         String[] definitionNames = applicationContext.getBeanDefinitionNames();
         System.err.println("==============打印definitionName=====================");
         for (String definitionName : definitionNames) {
-            System.out.println("bean----:" + definitionName);
+            System.out.println("definitionName----:" + definitionName);
         }
         System.err.println();
         CustomizePublisher customizePublisher = applicationContext.getBean(CustomizePublisher.class);
 
-
         Thread thread = new Thread(()-> {
                 try {
-                    System.out.println("开始吃饭：");
+                    System.err.println("开始吃饭：");
 
                     MealEvent lunchEvent = new MealEvent("A吃午饭了", MealEnum.lunch);
                     MealEvent breakfastEvent = new MealEvent("B吃早饭了", MealEnum.breakfast);
@@ -54,15 +53,15 @@ public class EventListenerTest {
                     customizePublisher.publish(dinnerEvent);
                     TimeUnit.SECONDS.sleep(1l);
 
-                    System.out.println("他们吃完了！");
+                    System.err.println("他们吃完了！");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
         },"meal-thread");
         thread.start();
 
-        System.out.println(Thread.currentThread().getName() + " is waiting for ....");
+        System.err.println(Thread.currentThread().getName() + " 线程等待当前线程（meal-thread）执行完成....");
         thread.join();
-        System.out.println("Done!!!!!!!!!!!!");
+        System.err.println("主线程与线程meal-thread执行完， 结束!!!!!!!!!!!!");
     }
 }
