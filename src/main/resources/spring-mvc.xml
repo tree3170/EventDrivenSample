@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- 1.开启MVC注解 -->
+	<mvc:annotation-driven />
+	<!-- 2.开启静态资源访问 -->
+	<!-- <mvc:default-servlet-handler /> -->
+	<!-- 3.默认首页：不经过controller直接跳到静态资源 -->
+	<mvc:view-controller path="/" view-name="/i18nDemoWithSession" />
+	<!-- 4.指定包路径扫描并注册Spring组件 -->
+	<context:component-scan base-package="com.tree,com.darlen" />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- 5.视图解析 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 配置国际化资源文件 -->
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basename">
+			<!-- 定义消息资源文件的相对路径(messages/message_en.properties) -->
+			<beans:value>messages/message</beans:value>
+		</beans:property>
+		<beans:property name="useCodeAsDefaultMessage">
+			<beans:value>true</beans:value>
+		</beans:property>
+	</beans:bean>
+	<!-- 基于Cookie的本地化解析器 -->
+	<!--  <beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	 设置cookieName名称，可以根据名称通过js来修改设置，也可以像上面演示的那样修改设置，
+	 默认的名称为 类名+LOCALE（即：org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE
+	 	<beans:property name="cookieName" value="lang"/>
+	    设置最大有效时间，如果是-1，则不存储，浏览器关闭后即失效，默认为Integer.MAX_INT
+	    <beans:property name="cookieMaxAge" value="1"/>
+	    设置cookie可见的地址，默认是“/”即对网站所有地址都是可见的，如果设为其它地址，则只有该地址或其后的地址才可见
+	    <beans:property name="defaultLocale" value="en"/>
+	    <beans:property name="cookiePath" value="/"/>
+	 </beans:bean> -->
+	 <beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+	
+	
+	
+	
+	
+</beans:beans>

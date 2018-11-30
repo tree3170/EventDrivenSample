@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <!-- 初始化Spring容器 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring.xml</param-value>
+  </context-param>
+  <!-- web Root路径，是为了log4j中log路径问题 -->
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>myWebApp.root</param-value>
+  </context-param>
+  <!-- 配置log4j配置文件路径 -->
+  <context-param>
+    <param-name>Log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.properties</param-value>
+  </context-param>
+   <!-- 日志页面的刷新间隔:
+        log4jRefreshInterval为60000表示 开一条watchdog线程每6秒扫描一下配置文件的变化 -->
+  <context-param>
+    <param-name>log4jRefreshInterval</param-name>
+    <param-value>600000</param-value>
+  </context-param>
+  <!--注册JSTL的i18n事件，value必需指定为全路径-->
+   <context-param>
+       <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+       <param-value>message.message</param-value>
+   </context-param>
+  
+  <!-- Spring提供了 一个Log4jConfigListener，本身就能通过web.xml中配置来指定位置加载log4j
+    配置文件和log输出路径，    ***注意该 Log4jConfigListener需要放在spring的ContextLoaderListener之前***  -->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  
+  <!-- 开启Spring监听，初始化WebApplicationWebContext -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 字符集过滤器,通过spring的Filter对所有请求统一设置诶UTF-8 -->
+  <filter>
+    <filter-name>characterEncoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>characterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- spring mvc servlet -->
+  <servlet>
+    <servlet-name>springMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springMVC</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>
