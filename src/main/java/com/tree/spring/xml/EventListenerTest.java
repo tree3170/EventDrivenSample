@@ -32,12 +32,11 @@ public class EventListenerTest {
                 new ClassPathXmlApplicationContext("spring-mvc.xml");
 
         String[] definitionNames = applicationContext.getBeanDefinitionNames();
-        System.err.println("==============definitionName====start=================");
+        System.err.println("==============打印definitionName=====================");
         for (String definitionName : definitionNames) {
             System.out.println("bean----:" + definitionName);
         }
-        System.out.println("==============definitionName====end=================");
-        System.out.println();
+        System.err.println();
         CustomizePublisher customizePublisher = applicationContext.getBean(CustomizePublisher.class);
 
 
