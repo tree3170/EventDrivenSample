@@ -1,7 +1,7 @@
 package com.tree.spring.xml;
 
 import com.tree.spring.enums.MealEnum;
-import com.tree.spring.xml.event.MealEvent;
+import com.tree.spring.event.MealEvent;
 import com.tree.spring.xml.publisher.CustomizePublisher;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

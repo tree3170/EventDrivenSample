@@ -1,6 +1,6 @@
 package com.tree.spring.xml.publisher;
 
-import com.tree.spring.xml.event.MealEvent;
+import com.tree.spring.event.MealEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;

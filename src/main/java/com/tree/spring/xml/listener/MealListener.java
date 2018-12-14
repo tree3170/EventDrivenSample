@@ -1,6 +1,6 @@
 package com.tree.spring.xml.listener;
 
-import com.tree.spring.xml.event.MealEvent;
+import com.tree.spring.event.MealEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 

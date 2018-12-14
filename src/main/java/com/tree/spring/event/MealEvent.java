@@ -1,4 +1,4 @@
-package com.tree.spring.xml.event;
+package com.tree.spring.event;
 
 import com.tree.spring.enums.MealEnum;
 import org.springframework.context.ApplicationEvent;
